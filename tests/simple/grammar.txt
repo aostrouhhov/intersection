@@ -1,0 +1,9 @@
+E E S1
+E num
+E L N
+S1 S2 E
+S2 +
+S2 *
+L (
+N E R
+R )
