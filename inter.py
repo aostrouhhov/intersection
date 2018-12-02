@@ -2,6 +2,7 @@ import os
 import sys
 import time
 import numpy as np
+import cupy as cp
 
 grammar_path = sys.argv[1]
 graph_path = sys.argv[2]
@@ -18,7 +19,7 @@ def algorithm():
 	for rule in rulesList:
 		temp = nontermMatrices[rule.from1]
 		nontermMatrices[rule.from1] = temp + (nontermMatrices[rule.to1] @ nontermMatrices[rule.to2])
-		changed = changed | (not np.array_equal(nontermMatrices[rule.from1], temp))
+		changed = changed | (not np.array_equal(cp.asnumpy(nontermMatrices[rule.from1]), cp.asnumpy(temp)))
 	return changed
 
 if __name__ == "__main__":
@@ -59,7 +60,7 @@ if __name__ == "__main__":
 				nontermDict[lexemas[1]].append(lexemas[0])
 
 		# Init matrices for all nonterms, fill them with 'False'
-		nontermMatrices.update({lexemas[0]: np.array(np.zeros((num_vertices,num_vertices), dtype=bool))})
+		nontermMatrices.update({lexemas[0]: cp.array(np.zeros((num_vertices,num_vertices), dtype=bool))})
 
 	print('Reading graph...')
 
@@ -90,7 +91,7 @@ if __name__ == "__main__":
 	with open(answer_path, 'a') as file_answer:
 		for nonterm in nontermMatrices:
 			file_answer.write(nonterm)
-			matrix = nontermMatrices[nonterm]
+			matrix = cp.asnumpy(nontermMatrices[nonterm])
 			for i in range (0, num_vertices):
 				for j in range (0, num_vertices):
 					if matrix[i][j] == True:
@@ -108,7 +109,7 @@ if __name__ == "__main__":
 	# 	listoflists.append(list(a_list))
 
 	# for key in nontermMatrices:
-	# 	matrix = nontermMatrices[key]
+	# 	matrix = cp.asnumpy(nontermMatrices[key])
 	# 	for i in range (0, num_vertices):
 	# 		for j in range (0, num_vertices):
 	# 			if matrix[i][j] == True:
