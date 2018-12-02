@@ -24,7 +24,7 @@ Indexing in Graph should be defined in numerical sequence starting from 0. Graph
     from term to
     ...
 
-Answer is presented in file with all nonterms and indexes of their matrices. Write only theose indexes in which matrix value is True:
+Answer is presented in file with all nonterms and indexes of their matrices. Write only theose indexes in which matrix value is 'True':
 
     nonterm1 i j ...
     nonterm2
