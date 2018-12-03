@@ -4,6 +4,8 @@
 There are 2 branches. `master` branch keeps simple algorithm implementation on `NumPy` arrays. `cuda` branch keeps the same algorithm using `CuPy` library instead of `NumPy`.
 
 ## Algorithm
+Made according to *"Context-Free Path Querying by Matrix Multiplication"* (Rustam Azimov and Semyon Grigorev).
+
 Each nonterm has its own bool matrix. At the begining 'True' in '(i,j) means that term in Graph which stands between veritces 'i' and 'j' is producable from this nonterm.
 
 Go through all grammar transitions multiple times. For each transition of view 'A -> B C' do the following: A = A + B * C. Continue loop while nonterm matrices change. Stop when matrices stop changing.
