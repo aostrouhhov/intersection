@@ -71,8 +71,11 @@ if __name__ == "__main__":
 	for line in graph_lines:
 		lexemas = line.split(' ')
 		# Add 'True' to (i,j) for all nonterms from which term can be produced
-		for nonterm in nontermDict[lexemas[1]]:
-			nontermMatrices[nonterm][int(lexemas[0])][int(lexemas[2])] = True
+		try:
+			for nonterm in nontermDict[lexemas[1]]:
+				nontermMatrices[nonterm][int(lexemas[0])][int(lexemas[2])] = True
+		except KeyError:
+			continue
 
 	print("Calculating...")
 	# Let's start multiplication!
